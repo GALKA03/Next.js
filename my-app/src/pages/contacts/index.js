@@ -1,7 +1,43 @@
 import { Heading } from "components/Heading/@"
-const Contacts = () => {
-    return (
-      <Heading text='Contacts list:'/>  
+import Head from "next/head"
+import Link from "next/link";
+
+
+export const getStaticProps = async () => {
+    const response = await fetch('https://jsonplaceholder.typicode.com/users');
+  const data = await response.json();
+  // console.log('data', data)
+   if (!data) {
+    return {
+      notFound: true,
+    }
+  }
+  return { props: { contacts: data } }
+}
+
+const Contacts = ({contacts}) => {
+
+
+
+  return (
+    <>
+       <Head>
+            <title>Contacts</title>
+            </Head>   
+      <Heading text='Contacts list:' />
+      <ul>
+        {contacts && contacts.map(({ id, name, email, website }) => (
+           <li key={id}>
+           <Link href={`/contacts/${id}`}>{name}</Link>
+            <p>{ website}</p>
+          </li>
+        )
+          
+        )
+}
+
+      </ul>
+    </> 
     )
 }
 export default Contacts
