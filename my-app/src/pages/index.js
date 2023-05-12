@@ -6,7 +6,7 @@ import Socials from "../components/Socials";
 
 export const getStaticProps = async () => {
   try {
-    const response = await fetch(`${process.env.API}/socials`);
+    const response = await fetch(`${process.env.API_HOST}/socials`);
     // if (!response.ok) {
     //   throw new Error('Failed to fetch socials');
     // }
