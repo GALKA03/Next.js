@@ -3,7 +3,7 @@ import { Heading } from "../../components/Heading"
 import Head from "next/head"
 
 export const getStaticProps = async () => {
-  const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+  try {const response = await fetch('https://jsonplaceholder.typicode.com/posts');
   const data = await response.json();
   console.log('data', data)
   if (!data) {
@@ -11,7 +11,9 @@ export const getStaticProps = async () => {
       notFound: true,
     };
   }
-  return { props: { posts: data } };
+  return { props: { posts: data } }; } catch (error) {
+   console.log(error)
+ } 
 };
 
 const Posts = ({ posts }) => {
